@@ -24,9 +24,6 @@ function printArr(array $array, $isEnd = false)
     }
 }
 
-
-
-
 // 3 домашнее задание - Реализовать роутинг по php-объектам
 //http://wd7/?c=controller&a=action
 //Создать в корне сервера директорию controllers. в нее добавить файл(можно несколько),
@@ -35,18 +32,30 @@ function printArr(array $array, $isEnd = false)
 // на основе controller создать экземпляр класса из дериктории controllers и запустить метод,
 // извлеченный из GET-параметра action.
 
+if ($_GET) {
+    $con = $_GET['c']; //Exception
+    $act = $_GET['a']; //getCode
+    include 'controllers'.DIRECTORY_SEPARATOR."$con.php";
+    $a = new $con;
+    $a->{$act}();
+} else echo "GET пустой";
+
+/*
 include 'controllers'.DIRECTORY_SEPARATOR.'contr1.php';
 include 'controllers'.DIRECTORY_SEPARATOR.'contr2.php';
 
 echo printArr($_GET);
-$con = $_GET['c'];
-$act = $_GET['a'];
+$con = $_GET['c']; //Exception
+$act = $_GET['a']; //getCode
 
 //$con::{$act}(); //вариант для статической функции
 
 $a = new $con;
 $a->{$act}();
 
+//$a = new $con('aaa', '404');
+//echo $a->{$act}();
+//$a->{$act}();
 
 /*
 // 2 домашнее задание - Создание бинарного дерева
