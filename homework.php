@@ -38,24 +38,8 @@ if ($_GET) {
     include 'controllers'.DIRECTORY_SEPARATOR."$con.php";
     $a = new $con;
     $a->{$act}();
+    //$con::{$act}(); //вариант для статической функции
 } else echo "GET пустой";
-
-/*
-include 'controllers'.DIRECTORY_SEPARATOR.'contr1.php';
-include 'controllers'.DIRECTORY_SEPARATOR.'contr2.php';
-
-echo printArr($_GET);
-$con = $_GET['c']; //Exception
-$act = $_GET['a']; //getCode
-
-//$con::{$act}(); //вариант для статической функции
-
-$a = new $con;
-$a->{$act}();
-
-//$a = new $con('aaa', '404');
-//echo $a->{$act}();
-//$a->{$act}();
 
 /*
 // 2 домашнее задание - Создание бинарного дерева

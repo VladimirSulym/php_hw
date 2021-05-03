@@ -1,6 +1,6 @@
 <?php
 
-class controller1 {
+class contr1 {
 
     public function action1 () {
         echo "Запущен Action 1 у Controller 1";
