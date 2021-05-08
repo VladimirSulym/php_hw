@@ -1,0 +1,57 @@
+
+---- Забираю каталог из старой базы данных ----
+
+$data = file_get_contents('http://test-api.ipromote.ru/API/CATALOG/FIND');
+$data = json_decode($data, true)['data'];
+printArr($data);
+$res = [];
+$i = 0;
+foreach ($data as $int_arr) {
+    foreach ($int_arr as $key => $item) {
+        if (strlen($key) > 1 && $key != 'desc' && $key != '10' && $key != '11') {
+            $res[$i][$key] = $item;
+        }
+    }; $i++;
+}
+printArr($res);
+
+foreach ($res as $res1) {
+    $msql->query("INSERT INTO catalog (id, title, dt_in, img, brand, colors, category, price, available, img_id, img_url) VALUES ('".$res1['id']."','".$res1['title']."','".$res1['dt_in']."','".$res1['img']."','".$res1['brand']."','".$res1['colors']."','".$res1['category']."','".$res1['price']."','".$res1['available']."','".$res1['img_id']."','".$res1['img_url']."')");
+};
+
+---- Забираю файлы из старой базы ----
+
+$msql = new mysql();
+$msql->connect($config['db']['local']);
+$data = ($msql->querySelect('SELECT img_url FROM catalog'));
+
+foreach ($data as $value) {
+//    echo $value['img_url'];br();
+    $url = 'http://test-api.ipromote.ru/img/'.$value['img_url'];
+    $file_name = basename($url);
+
+    if (file_put_contents( 'imgs'.DIRECTORY_SEPARATOR."$file_name", file_get_contents($url))) {
+        echo "File downloaded successfully";
+    } else {
+        echo "File downloading failed.";
+    }
+}
+
+----- Стартовый код проекта -----
+
+include 'classes/request.php';
+$r = request::getInstance();
+echo 'method = '.$r->method;br();
+$a = [
+    "a" => 'asdasd',
+    "b" => 'asdassad',
+    "c" => 100,
+    "d" => 123123,
+    "PRISHLI" => 'NAKONEC TOOOOOO!!!!'
+];
+$a['method'] = $r->method;
+
+echo json_encode($a);
+include 'app/controllers/restcontroller.php';
+$rest = new restcontroller();
+echo $rest->actionGet();

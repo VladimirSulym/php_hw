@@ -1,11 +1,23 @@
 <?php
 
 
-class maincontroller
+class maincontroller extends controller
 {
     public function actionIndex ()
     {
         echo '<div style="background-color: aquamarine"> I am INDEX action in maincontroller </div>';
+        $layout = $this->renderPage([
+            'categories' => [
+                ['link' => '/category/posuda', 'name' => 'Посуда'],
+                ['link' => '/category/posuda', 'name' => 'Посуда'],
+                ['link' => '/category/posuda', 'name' => 'Посуда'],
+                ['link' => '/category/posuda', 'name' => 'Посуда'],
+                ['link' => '/category/posuda', 'name' => 'Посуда'],
+                ['link' => '/category/posuda', 'name' => 'Посуда'],
+                ['link' => '/category/posuda', 'name' => 'Посуда']
+                ]
+        ]);
+        echo $layout;
     }
 
     public function actionInfo ()

@@ -2,11 +2,9 @@
 
 if (!$_FILES['img']['errors']) {
     $a = new loadFile();
-    printArr($a->arrFile);
 } else {
     echo "Произошла ошибка в загрузке файла";
 }
-
 
 class loadFile
 {
